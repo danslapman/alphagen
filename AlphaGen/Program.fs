@@ -21,11 +21,15 @@ let makeCharSeq (characters: char seq) elLen  =
             makeSeqLevel (computeVariants subSeq) (currentLevel - 1)
     makeSeqLevel [[]] elLen |> Seq.filter (checkCharDoubling 3)
 
-[<EntryPoint>]
-let main argv = 
-    let of3 = makeCharSeq AllSymbols 10 |> Seq.map System.String.Concat
-    for l in of3 do
+let printSeq sq =
+    for l in sq do
         printfn "%s" l
+
+[<EntryPoint>]
+let main argv =
+    for len in [3..7] do
+        let sequence = makeCharSeq AllSymbols len |> Seq.map System.String.Concat
+        printSeq sequence
 
     Console.ReadKey() |> ignore
     0
